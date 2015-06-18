@@ -5,11 +5,11 @@ VisualStudioVersion = 14.0.22823.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderBeast", "SpiderBeast\SpiderBeast.csproj", "{53758EEC-F754-45C5-BEB0-5369114DF7C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitJson", "..\LitJson\LitJson.csproj", "{53758EEC-F754-45C5-BEB0-5369114DF7C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitJson", ".\LitJson\LitJson.csproj", "{53758EEC-F754-45C5-BEB0-5369114DF7C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack", "..\HtmlAgilityPack\HtmlAgilityPack.csproj", "{193BB801-054F-4729-9D5D-FCE1E32594BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack", ".\HtmlAgilityPack\HtmlAgilityPack.csproj", "{193BB801-054F-4729-9D5D-FCE1E32594BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jint", "..\Jint\Jint.csproj", "{678738DA-F723-4920-B9E5-CAD667104BDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jint", ".\Jint\Jint.csproj", "{678738DA-F723-4920-B9E5-CAD667104BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

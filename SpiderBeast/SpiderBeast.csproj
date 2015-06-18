@@ -43,15 +43,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HtmlAgilityPack\HtmlAgilityPack.csproj">
+    <ProjectReference Include="..\HtmlAgilityPack\HtmlAgilityPack.csproj">
       <Project>{193bb801-054f-4729-9d5d-fce1e32594bf}</Project>
       <Name>HtmlAgilityPack</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Jint\Jint.csproj">
+    <ProjectReference Include="..\Jint\Jint.csproj">
       <Project>{678738da-f723-4920-b9e5-cad667104bda}</Project>
       <Name>Jint</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\LitJson\LitJson.csproj">
+    <ProjectReference Include="..\LitJson\LitJson.csproj">
       <Project>{53758eec-f754-45c5-beb0-5369114df7c8}</Project>
       <Name>LitJson</Name>
     </ProjectReference>

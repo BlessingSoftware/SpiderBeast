@@ -9,7 +9,7 @@ namespace SpiderBeast.Rules
     /// <summary>
     /// 参数规则，如果具有指定名称的参数则满足
     /// </summary>
-    class RequireAttributeRule : AttributeRule
+    public class RequireAttributeRule : AttributeRule
     {
         /// <summary>
         /// 构造函数

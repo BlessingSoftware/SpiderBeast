@@ -9,7 +9,7 @@ namespace SpiderBeast.Rules
     /// <summary>
     /// 检查参数规则的抽象类
     /// </summary>
-    abstract class AttributeRule : Rule
+    public abstract class AttributeRule : Rule
     {
         /// <summary>
         /// 参数名称
@@ -45,8 +45,7 @@ namespace SpiderBeast.Rules
         {
             get
             {
-                //属性规则比较简单，优先级设为1（高）
-                return 1;
+                return Uitlity.RulePriority.AttributeRulePriority;
             }
         }
     }

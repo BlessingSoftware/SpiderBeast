@@ -9,7 +9,7 @@ namespace SpiderBeast.Rules
     /// <summary>
     /// 逻辑规则抽象类，用于处理规则之间的逻辑关系。内部含有子规则。
     /// </summary>
-    abstract class LogicRule : Base.Rule
+    abstract public class LogicRule : Base.Rule
     {
         protected List<Rule> targetRules;
 
@@ -26,18 +26,29 @@ namespace SpiderBeast.Rules
             targetRules.Sort();
         }
 
+        /// <summary>
+        /// 添加一个子规则
+        /// </summary>
+        /// <param name="rule"></param>
         public void AddRule(Rule rule)
         {
             targetRules.Add(rule);
             targetRules.Sort();
         }
 
+        /// <summary>
+        /// 返回内部子规则的数量
+        /// </summary>
+        /// <returns></returns>
         public int RuleCount()
         {
             return targetRules.Count();
         }
 
         //TODO: 删除某个现有规则的方法，在等处理完比较器后，再实现一个迭代器来实现？
+        /// <summary>
+        /// 清除全部子规则
+        /// </summary>
         public void ClearAll()
         {
             targetRules.Clear();
@@ -53,8 +64,7 @@ namespace SpiderBeast.Rules
         {
             get
             {
-                //设定逻辑规则的优先级为5
-                return 5;
+                return Uitlity.RulePriority.LogicRulePriority;
             }
         }
     }

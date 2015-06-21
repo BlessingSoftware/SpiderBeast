@@ -26,5 +26,16 @@ namespace SpiderBeast.Base
         /// </summary>
         /// <returns>返回通用类型的结果信息，根据不同子类的实现可能不同，下转型后使用。</returns>
         public abstract object GetResult();
+
+        /// <summary>
+        /// 获取目标节点的结果信息的泛型方法。
+        /// </summary>
+        /// <typeparam name="T">返回值的类型</typeparam>
+        /// <returns></returns>
+        public virtual T GetResult<T>()
+        {
+            return (T)this.GetResult();
+        }
+
     }
 }

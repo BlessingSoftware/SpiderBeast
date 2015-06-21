@@ -198,23 +198,49 @@ namespace SpiderBeast.Uitlity
 
         public const string HTTP_Protocol = "http://";
 
+        /// <summary>
+        /// 设置请求，使用共享的CookieContainer
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static bool SetRequestHandler(HttpWebRequest request)
+        {
+            //允许服务器发送压缩过的文件流
+            request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
+            request.Timeout = 100000;
+            request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            request.CookieContainer = s_cookies;
+            return true;
+        }
+
+        /// <summary>
+        /// 由uri获取网络请求
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
         public static WebRequest GetRequestByUri(Uri uri)
         {
             WebRequest req = WebRequest.Create(uri);
 
-            if (s_useIECookie && req is HttpWebRequest)
+            if (s_useIECookie)
             {
                 //TODO: 实现使用IE Cookie
                 //var t = GetInternetCookie(url);
                 //GetCookies(url);
-                (req as HttpWebRequest).CookieContainer = s_cookies;
+                //(req as HttpWebRequest).CookieContainer = s_cookies;
             }
-            //允许服务器发送压缩过的文件流
-            req.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
-            req.Timeout = 100000;
+            if (req is HttpWebRequest)
+            {
+                SetRequestHandler(req as HttpWebRequest);
+            }
             return req;
         }
 
+        /// <summary>
+        /// 由网址获取网络请求
+        /// </summary>
+        /// <param name="url">网址，http协议可省略</param>
+        /// <returns></returns>
         public static WebRequest GetRequestByUrl(string url)
         {
             if (url.IndexOf("://", StringComparison.CurrentCultureIgnoreCase) < 0)
@@ -223,7 +249,7 @@ namespace SpiderBeast.Uitlity
             }
             Uri myuri = new Uri(url);
             WebRequest req = WebRequest.Create(myuri);
-            
+
             req.Timeout = 100000;
             return GetRequestByUri(myuri);
         }
@@ -284,7 +310,7 @@ namespace SpiderBeast.Uitlity
             }
             return doc;
         }
-        
+
         public static string GetBaseUrl(string url)
         {
             int i = url.IndexOf("://") + 3;

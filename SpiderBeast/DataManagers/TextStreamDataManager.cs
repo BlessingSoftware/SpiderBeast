@@ -13,6 +13,19 @@ namespace SpiderBeast.DataManagers
     public class TextStreamDataManager : DataManager
     {
         /// <summary>
+        /// 写入文本时的编码
+        /// </summary>
+        Encoding m_encoding;
+
+        /// <summary>
+        /// 设置或获取文本的编码
+        /// </summary>
+        public Encoding TextEncoding
+        {
+            get { return m_encoding; }
+            set { m_encoding = value; }
+        }
+        /// <summary>
         /// 指定文件的地址
         /// </summary>
         string filePath;
@@ -28,20 +41,30 @@ namespace SpiderBeast.DataManagers
         /// 文本流数据处理器构造函数。默认覆盖原文件。
         /// </summary>
         /// <param name="path">要指定写入的地址</param>
-        public TextStreamDataManager(string path)
+        public TextStreamDataManager(string path) : this(path, false)
         {
-            filePath = path;
         }
 
         /// <summary>
-        /// 文本流处理器构造函数。
+        /// 文本流处理器构造函数，使用UTF-8编码。
         /// </summary>
         /// <param name="path">要指定写入的地址</param>
         /// <param name="append">指定追加模式，True为追加。</param>
-        public TextStreamDataManager(string path, bool append)
+        public TextStreamDataManager(string path, bool append) : this(path, append, Encoding.UTF8)
+        {
+        }
+
+        /// <summary>
+        /// 文本流处理器构造函数,指定使用的字符编码。
+        /// </summary>
+        /// <param name="path">要指定写入的地址</param>
+        /// <param name="append">指定追加模式，True为追加。</param>
+        /// <param name="encoding">要使用的字符编码。</param>
+        public TextStreamDataManager(string path, bool append, Encoding encoding)
         {
             filePath = path;
             appendMode = append;
+            m_encoding = encoding;
         }
 
         /// <summary>
@@ -59,7 +82,7 @@ namespace SpiderBeast.DataManagers
         /// <param name="data"></param>
         public override void DataHandler(FilterResult data)
         {
-            string text = (string)data.GetResult();
+            string text = data.GetResult<string>();
             w.WriteLine(text);
         }
 
@@ -77,7 +100,7 @@ namespace SpiderBeast.DataManagers
         /// </summary>
         public override void OnFetchStartHandler()
         {
-            w = new StreamWriter(filePath, appendMode);
+            w = new StreamWriter(filePath, appendMode, m_encoding);
         }
     }
 }

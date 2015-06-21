@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
 using SpiderBeast.Uitlity;
+using System.Net;
 
 namespace SpiderBeast.Base
 {
@@ -87,8 +88,11 @@ namespace SpiderBeast.Base
         {
             if(targetURL != null)
             {
-                //HtmlWeb web = new HtmlWeb();
-                doc = HtmlUitilty.GetDocumentByUrl(targetURL);// web.Load(targetURL);
+                HtmlWeb web = new HtmlWeb();
+                //为 HtmlWeb 添加对gzip压缩的网页的支持，以及使用Cookie伪装
+                web.PreRequest +=HtmlUitilty.SetRequestHandler;
+
+                doc =web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
             }
         }
 

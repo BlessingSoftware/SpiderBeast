@@ -17,7 +17,27 @@ namespace SpiderBeast.FilterResults
 
         public override object GetResult()
         {
+            //移除HtmlNode中的注释
+            var comments = targetNode.SelectNodes(".//comment()");
+            if (comments != null)
+            {
+                foreach (HtmlNode item in comments)
+                {
+                    item.Remove();
+                }
+            }
+            //移除脚本
+            var script = targetNode.SelectNodes(".//script");
+            if (script != null)
+            {
+                foreach (HtmlNode item in script)
+                {
+                    item.Remove();
+                }
+            }
+
             return targetNode.InnerText;
         }
+
     }
 }

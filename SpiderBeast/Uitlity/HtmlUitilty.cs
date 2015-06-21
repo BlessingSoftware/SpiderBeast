@@ -129,7 +129,7 @@ namespace SpiderBeast.Uitlity
             //CookieCollection cc = new CookieCollection();
             StringBuilder cookie = new StringBuilder(2048);
             int datasize = cookie.Length;
-            
+
             if (!InternetGetCookie(urlName, null, cookie, ref datasize))
             {
                 cookie.EnsureCapacity(datasize);
@@ -160,7 +160,7 @@ namespace SpiderBeast.Uitlity
             //uri.Host;
             foreach (Cookie c in cc)
             {
-                InternetSetCookie(uri.GetLeftPart(System.UriPartial.Authority), c.Name, c.Value+";expires=Sun,22-Feb-2099 00:00:00 GMT");
+                InternetSetCookie(uri.GetLeftPart(System.UriPartial.Authority), c.Name, c.Value + ";expires=Sun,22-Feb-2099 00:00:00 GMT");
             }
         }
 
@@ -197,19 +197,10 @@ namespace SpiderBeast.Uitlity
         }
 
         public const string HTTP_Protocol = "http://";
-        /// <summary>
-        /// 获取给定网址的HTML字符串
-        /// </summary>
-        /// <param name="url">网址,http协议可省略</param>
-        /// <returns>HTML字符串</returns>
-        public static string GetStringByUrl(string url)
+
+        public static WebRequest GetRequestByUri(Uri uri)
         {
-            if (url.IndexOf("://", StringComparison.CurrentCultureIgnoreCase) < 0)
-            {
-                url = HTTP_Protocol + url;
-            }
-            Uri myuri = new Uri(url);
-            WebRequest req = WebRequest.Create(myuri);
+            WebRequest req = WebRequest.Create(uri);
 
             if (s_useIECookie && req is HttpWebRequest)
             {
@@ -221,6 +212,30 @@ namespace SpiderBeast.Uitlity
             //允许服务器发送压缩过的文件流
             req.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
             req.Timeout = 100000;
+            return req;
+        }
+
+        public static WebRequest GetRequestByUrl(string url)
+        {
+            if (url.IndexOf("://", StringComparison.CurrentCultureIgnoreCase) < 0)
+            {
+                url = HTTP_Protocol + url;
+            }
+            Uri myuri = new Uri(url);
+            WebRequest req = WebRequest.Create(myuri);
+            
+            req.Timeout = 100000;
+            return GetRequestByUri(myuri);
+        }
+
+        /// <summary>
+        /// 获取给定网址的HTML字符串
+        /// </summary>
+        /// <param name="url">网址,http协议可省略</param>
+        /// <returns>HTML字符串</returns>
+        public static string GetStringByUrl(string url)
+        {
+            var req = GetRequestByUrl(url);
             using (WebResponse resp = req.GetResponse())
             {
                 var stream = resp.GetResponseStream();
@@ -258,8 +273,62 @@ namespace SpiderBeast.Uitlity
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(GetStringByUrl(url));
+
+            var root = doc.DocumentNode;
+            if (root.SelectSingleNode(XPATH_HEAD) == null)
+            {
+                //设置针对页面中所有链接的基准 URL
+                var basehref = doc.CreateElement("base");
+                basehref.SetAttributeValue("href", GetBaseUrl(url));
+                root.SelectSingleNode(XPATH_HEAD).ChildNodes.Add(basehref);
+            }
             return doc;
         }
+        
+        public static string GetBaseUrl(string url)
+        {
+            int i = url.IndexOf("://") + 3;
+            //string protocol = url.Substring(0, i);
+            int j = url.IndexOf("/", i);
+            if (j < 0)
+            {
+                return url + "/";
+            }
+            return url.Substring(0, j + 1);
+        }
+
+        #region "扩展方法"
+        const string XPATH_HEAD = "/html/head";
+        const string XPATH_TITLE = "/html/head/title";
+        const string XPATH_BASEHREF = "/html/head/base[@href]";
+
+        /// <summary>
+        /// 获取HtmlDocument对象的标题
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <returns></returns>
+        public static string Title(this HtmlDocument doc)
+        {
+            return doc.DocumentNode.SelectSingleNode(XPATH_TITLE).InnerText;
+        }
+
+        /// <summary>
+        /// 返回针对页面中所有链接的基准 URL
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <returns>针对页面中所有链接的基准 URL，如果不存在则返回null</returns>
+        public static string BaseUrl(this HtmlDocument doc)
+        {
+            var b = doc.DocumentNode.SelectSingleNode(XPATH_BASEHREF);
+            if (b == null)
+            {
+                return null;
+            }
+            return b.Attributes["href"].Value;
+        }
+
+
+        #endregion
 
     }
 }

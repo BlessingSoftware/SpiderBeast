@@ -10,8 +10,10 @@ namespace SpiderBeast.Uitlity
     /// </summary>
     public enum RulePriority : int
     {
+        TypeRulePriority = 0,
         AttributeRulePriority = 1,
         RelativeRulePriority = 3,
         LogicRulePriority = 5,
+
     }
 }

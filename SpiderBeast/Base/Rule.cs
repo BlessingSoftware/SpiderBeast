@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HtmlAgilityPack;
 
 namespace SpiderBeast.Base
 {
@@ -31,6 +32,6 @@ namespace SpiderBeast.Base
         /// </summary>
         /// <param name="targetNode">待验证的的节点</param>
         /// <returns>返回是否满足规则的布尔值</returns>
-        public abstract bool Verify(HtmlAgilityPack.HtmlNodeNavigator targetNode);
+        public abstract bool Verify(HtmlNode targetNode);
     }
 }

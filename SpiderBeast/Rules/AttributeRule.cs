@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SpiderBeast.Base;
+using SpiderBeast.Uitlity;
 
 namespace SpiderBeast.Rules
 {
@@ -41,11 +42,11 @@ namespace SpiderBeast.Rules
             attributeValue = value;
         }
 
-        public override int Priority
+        public override RulePriority Priority
         {
             get
             {
-                return Uitlity.RulePriority.AttributeRulePriority;
+                return RulePriority.AttributeRulePriority;
             }
         }
     }

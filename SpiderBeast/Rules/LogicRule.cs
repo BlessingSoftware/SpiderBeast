@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SpiderBeast.Base;
+using SpiderBeast.Uitlity;
 
 namespace SpiderBeast.Rules
 {
@@ -60,7 +61,7 @@ namespace SpiderBeast.Rules
             targetRules.Sort();
         }
 
-        public override int Priority
+        public override RulePriority Priority
         {
             get
             {

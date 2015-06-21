@@ -11,14 +11,14 @@ namespace SpiderBeast.Rules
     /// 逻辑规则与，只有内部的所有条件均成立，本条件才成立。
     /// 如果内部规则数量为0，则默认返回成立。
     /// </summary>
-    class LogicAndRule : LogicRule
+    public class LogicAndRule : LogicRule
     {
 
         public LogicAndRule() : base() { }
 
         public LogicAndRule(Rule rule1, Rule rule2) : base(rule1, rule2) { }
 
-        public override bool Verify(HtmlNodeNavigator targetNode)
+        public override bool Verify(HtmlNode targetNode)
         {
             foreach (Rule i in targetRules)
             {

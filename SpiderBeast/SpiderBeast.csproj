@@ -39,11 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\DataManager.cs" />
+    <Compile Include="Base\Fetch.cs" />
     <Compile Include="Base\Filter.cs" />
     <Compile Include="Base\FilterResult.cs" />
     <Compile Include="Base\Rule.cs" />
-    <Compile Include="Uitlity\DownLoadUitlity.cs" />
-    <Compile Include="WebFileInfo.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AttributeEqualToRule.cs" />
     <Compile Include="Rules\AttributeRule.cs" />
@@ -53,8 +54,14 @@
     <Compile Include="Rules\LogicRule.cs" />
     <Compile Include="Rules\LogicAndRule.cs" />
     <Compile Include="Rules\RequireAttributeRule.cs" />
+    <Compile Include="DataManagers\TextStreamDataManager.cs" />
+    <Compile Include="Rules\TypeRule.cs" />
+    <Compile Include="Uitlity\Delegates.cs" />
+    <Compile Include="Uitlity\DownLoadUitlity.cs" />
+    <Compile Include="Uitlity\HtmlRecurver.cs" />
     <Compile Include="Uitlity\HtmlUitilty.cs" />
     <Compile Include="Uitlity\RulePriority.cs" />
+    <Compile Include="WebFileInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlAgilityPack\HtmlAgilityPack.csproj">

@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HtmlAgilityPack\HtmlAgilityPack.csproj">
+      <Project>{193bb801-054f-4729-9d5d-fce1e32594bf}</Project>
+      <Name>HtmlAgilityPack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpiderBeast\SpiderBeast.csproj">
       <Project>{53758eec-f754-45c5-beb0-5369114df7c7}</Project>
       <Name>SpiderBeast</Name>

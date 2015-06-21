@@ -87,8 +87,8 @@ namespace SpiderBeast.Base
         {
             if(targetURL != null)
             {
-                HtmlWeb web = new HtmlWeb();
-                doc = web.Load(targetURL);
+                //HtmlWeb web = new HtmlWeb();
+                doc = HtmlUitilty.GetDocumentByUrl(targetURL);// web.Load(targetURL);
             }
         }
 

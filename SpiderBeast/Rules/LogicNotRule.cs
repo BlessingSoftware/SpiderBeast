@@ -33,7 +33,7 @@ namespace SpiderBeast.Rules
             targetRules.Add(rule);
         }
 
-        public override bool Verify(HtmlNodeNavigator targetNode)
+        public override bool Verify(HtmlNode targetNode)
         {
             if (targetRules.Count() == 0) return true;
             return !targetRules[0].Verify(targetNode);

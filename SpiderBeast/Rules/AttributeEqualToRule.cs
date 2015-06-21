@@ -25,9 +25,9 @@ namespace SpiderBeast.Rules
             set { attributeValue = value; }
         }
 
-        public override bool Verify(HtmlNodeNavigator targetNode)
+        public override bool Verify(HtmlNode targetNode)
         {
-            var attr = targetNode.CurrentNode.Attributes;
+            var attr = targetNode.Attributes;
             foreach (var i in attr)
             {
                 if (i.Name == attributeName)

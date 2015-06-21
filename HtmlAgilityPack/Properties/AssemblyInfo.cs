@@ -21,7 +21,7 @@ using System.Security;
     AssemblyCopyright(
         "Copyright (C) 2003-20010 Simon Mourier <simon underscore mourier at hotmail dot com> All rights reserved.")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("en-US")]
+//[assembly: AssemblyCulture("en-US")]
 [assembly: ComVisible(true)]
 [assembly: Guid("643622ea-d2aa-4572-a2b2-6202b7fcd83f")]
 [assembly: AssemblyVersion("1.9.0.1")]

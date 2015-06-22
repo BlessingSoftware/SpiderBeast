@@ -43,7 +43,7 @@ namespace SpiderBeast.Base
         /// <param name="node">筛选范围的根节点，会遍历此节点的所有子节点。一般可以考虑将body节点作为根节点传入。</param>
         /// <returns>筛选后的结果集合</returns>
         public virtual List<HtmlNode> FiltAsRoot(HtmlNode node) {
-            //TODO: 完成筛选器的FiltAsRoot虚方法的基本实现
+            //DONE: 完成筛选器的FiltAsRoot虚方法的基本实现
             results.Clear();
             HtmlRecurver r = new HtmlRecurver(node, NodeFoundHandler);
             r.Recure();
@@ -62,11 +62,8 @@ namespace SpiderBeast.Base
         /// <returns></returns>
         public virtual bool FiltAsNode(HtmlNode node)
         {
-            //TODO: 完成筛选器的FiltAsNode虚方法的基本实现
+            //DONE: 完成筛选器的FiltAsNode虚方法的基本实现
             return rule.Verify(node);
         }
-
-
-
     }
 }

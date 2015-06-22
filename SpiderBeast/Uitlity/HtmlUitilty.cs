@@ -300,6 +300,17 @@ namespace SpiderBeast.Uitlity
             var doc = new HtmlDocument();
             doc.LoadHtml(GetStringByUrl(url));
 
+            EnsureDocumentUrl(doc,url);
+            return doc;
+        }
+
+        /// <summary>
+        /// 确保HtmlDocument的基础网址被保存下来
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="url">网页的网址</param>
+        public static void EnsureDocumentUrl(HtmlDocument doc,string url)
+        {
             var root = doc.DocumentNode;
             if (root.SelectSingleNode(XPATH_HEAD) == null)
             {
@@ -308,7 +319,6 @@ namespace SpiderBeast.Uitlity
                 basehref.SetAttributeValue("href", GetBaseUrl(url));
                 root.SelectSingleNode(XPATH_HEAD).ChildNodes.Add(basehref);
             }
-            return doc;
         }
 
         public static string GetBaseUrl(string url)

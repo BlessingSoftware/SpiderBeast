@@ -100,13 +100,15 @@ namespace SpiderBeast.Base
         /// </summary>
         public void RefreshHtml()
         {
-            if(targetURL != null)
+            if (targetURL != null)
             {
                 HtmlWeb web = new HtmlWeb();
                 //为 HtmlWeb 添加对gzip压缩的网页的支持，以及使用Cookie伪装
-                web.PreRequest +=HtmlUitilty.SetRequestHandler;
+                web.PreRequest += HtmlUitilty.SetRequestHandler;
 
-                doc =web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
+                doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
+                //设置跳转url
+                HtmlUitilty.EnsureDocumentUrl(doc,targetURL);
             }
         }
 
@@ -155,7 +157,7 @@ namespace SpiderBeast.Base
                     break;
 
                 case FetchOrder.FilterOrder:
-                    for(int i = 0; i < filterSet.Count; i ++)
+                    for (int i = 0; i < filterSet.Count; i++)
                     {
                         DataManagerCallBack(filterSet[i].FiltAsRoot(doc.DocumentNode), i);
                     }

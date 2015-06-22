@@ -55,5 +55,13 @@ namespace SpiderBeast.Fetchs
         {
 
         }
+
+        protected override void DataManagerCallBack(List<HtmlNode> results, int filterID)
+        {
+            foreach(var i in results)
+            {
+                dataManagerPool[0].DataHandler(new FilterResults.TextContentResult(i));
+            }
+        }
     }
 }

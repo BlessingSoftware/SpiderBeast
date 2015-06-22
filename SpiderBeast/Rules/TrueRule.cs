@@ -13,11 +13,11 @@ namespace SpiderBeast.Rules
     /// </summary>
     public class TrueRule : Rule
     {
-        public override RulePriority Priority
+        public override int Priority
         {
             get
             {
-                return RulePriority.TypeRulePriority;
+                return (int)RulePriority.ConstanRulePriority;
             }
         }
 

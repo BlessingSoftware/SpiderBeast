@@ -15,7 +15,7 @@ namespace SpiderBeast.Base
         /// <summary>
         /// 表示规则的优先级，数字越低，优先级越高。用于优化性能，原则上越简单的规则优先级越高。基类重写访问器来设定其固定值。
         /// </summary>
-        public abstract RulePriority Priority { get; }
+        public abstract int Priority { get; }
 
 
         //TODO: 修改此比较方法，改用比较器比较Priority，否则将会把Priority相等的Rule视为同样的Rule

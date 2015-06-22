@@ -24,11 +24,13 @@ namespace SpiderBeast.Rules
             rule = r;
         }
 
-        public override RulePriority Priority
+        public override int Priority
         {
             get
             {
-                return Uitlity.RulePriority.RelativeRulePriority;
+                int pri = (int)Uitlity.RulePriority.RelativeRulePriority;
+                pri += rule.Priority;
+                return pri;
             }
         }
 

@@ -61,11 +61,16 @@ namespace SpiderBeast.Rules
             targetRules.Sort();
         }
 
-        public override RulePriority Priority
+        public override int Priority
         {
             get
             {
-                return Uitlity.RulePriority.LogicRulePriority;
+                int pri = (int)Uitlity.RulePriority.LogicRulePriority;
+                foreach(var i in targetRules)
+                {
+                    pri += i.Priority;
+                }
+                return pri;
             }
         }
     }

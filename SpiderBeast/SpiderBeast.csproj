@@ -54,8 +54,13 @@
     <Compile Include="Rules\LogicOrRule.cs" />
     <Compile Include="Rules\LogicRule.cs" />
     <Compile Include="Rules\LogicAndRule.cs" />
+    <Compile Include="Rules\RelativeFatherRule.cs" />
+    <Compile Include="Rules\RelativeNextSiblingRule.cs" />
+    <Compile Include="Rules\RelativeRule.cs" />
+    <Compile Include="Rules\RelativeSonRule.cs" />
     <Compile Include="Rules\RequireAttributeRule.cs" />
     <Compile Include="DataManagers\TextStreamDataManager.cs" />
+    <Compile Include="Rules\TrueRule.cs" />
     <Compile Include="Rules\TypeRule.cs" />
     <Compile Include="Uitlity\Delegates.cs" />
     <Compile Include="Uitlity\DownLoadUitlity.cs" />

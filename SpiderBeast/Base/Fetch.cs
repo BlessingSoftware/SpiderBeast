@@ -49,6 +49,14 @@ namespace SpiderBeast.Base
         /// </summary>
         protected HtmlDocument doc;
 
+        private FetchOrder mFetchOder = FetchOrder.OriginHtmlOrder;
+
+        public enum FetchOrder : int
+        {
+            OriginHtmlOrder = 0,
+            FilterOrder = 1
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -68,6 +76,12 @@ namespace SpiderBeast.Base
             doc = htmlDoc;
             hasLoaded = true;
             targetURL = null;
+        }
+
+        public FetchOrder StartFetchOrder
+        {
+            get { return mFetchOder; }
+            set { mFetchOder = value; }
         }
 
         /// <summary>
@@ -127,15 +141,29 @@ namespace SpiderBeast.Base
         /// </summary>
         public void StartFetch()
         {
-            initDataManger();
-            FetchStartEvent();
+            switch (mFetchOder)
+            {
+                case FetchOrder.OriginHtmlOrder:
+                    initDataManger();
+                    FetchStartEvent();
 
-            HtmlNode node = doc.DocumentNode;
-            HtmlRecurver recure = new HtmlRecurver(node, FetchCallBack);
-            recure.Recure();
+                    HtmlNode node = doc.DocumentNode;
+                    HtmlRecurver recure = new HtmlRecurver(node, FetchCallBack);
+                    recure.Recure();
 
-            FetchEndEvent();
+                    FetchEndEvent();
+                    break;
+
+                case FetchOrder.FilterOrder:
+                    for(int i = 0; i < filterSet.Count; i ++)
+                    {
+                        DataManagerCallBack(filterSet[i].FiltAsRoot(doc.DocumentNode), i);
+                    }
+                    break;
+            }
         }
+
+        abstract protected void DataManagerCallBack(List<HtmlNode> results, int filterID);
 
         /// <summary>
         /// 回调函数，用于让子类实现多态性。基类会递归的将每一个Node作为参数调用此回调函数。

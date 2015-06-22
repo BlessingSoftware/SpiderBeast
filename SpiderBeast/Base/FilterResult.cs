@@ -16,6 +16,14 @@ namespace SpiderBeast.Base
             targetNode = node.Clone();
         }
 
+        public FilterResult() { }
+
+        public FilterResult SetTargetNode(HtmlNode node)
+        {
+            targetNode = node;
+            return this;
+        }
+
         /// <summary>
         /// 目标节点的存档
         /// </summary>

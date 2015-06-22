@@ -45,6 +45,7 @@
     <Compile Include="Base\FilterResult.cs" />
     <Compile Include="Base\Rule.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
+    <Compile Include="FilterResults\LinkContentResult.cs" />
     <Compile Include="FilterResults\TextContentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rules\AttributeEqualToRule.cs" />

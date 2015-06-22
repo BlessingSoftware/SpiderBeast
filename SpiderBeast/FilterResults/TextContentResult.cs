@@ -12,6 +12,8 @@ namespace SpiderBeast.FilterResults
     /// </summary>
     public class TextContentResult : FilterResult
     {
+        public TextContentResult() { }
+
         public TextContentResult(HtmlNode node) : base(node) { }
 
 

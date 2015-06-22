@@ -6,13 +6,15 @@ using SpiderBeast.Base;
 using HtmlAgilityPack;
 using SpiderBeast.DataManagers;
 using SpiderBeast.Uitlity;
+using SpiderBeast.FilterResults;
 
 namespace SpiderBeast.Fetchs
 {
     /// <summary>
     /// 基本拉取类型，将所有Filter的结果以文本汇总到文件中。
     /// </summary>
-    public class SingleHtmlFetch : Fetch
+    //TODO 修改泛型类型的构造函数，让T支持一个htmlNode做参数的构造函数，T继承于FilterResult
+    public class SingleHtmlFetch <T> : Fetch where T:FilterResult, new()
     {
         /// <summary>
         /// 
@@ -46,7 +48,7 @@ namespace SpiderBeast.Fetchs
             {
                 if (i.FiltAsNode(node))
                 {
-                    dataManagerPool[0].DataHandler(new FilterResults.TextContentResult(node));
+                    dataManagerPool[0].DataHandler(new T().SetTargetNode(node));
                 }
             }
         }
@@ -60,7 +62,7 @@ namespace SpiderBeast.Fetchs
         {
             foreach(var i in results)
             {
-                dataManagerPool[0].DataHandler(new FilterResults.TextContentResult(i));
+                dataManagerPool[0].DataHandler(new T().SetTargetNode(i));
             }
         }
     }

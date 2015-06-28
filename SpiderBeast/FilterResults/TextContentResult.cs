@@ -16,27 +16,27 @@ namespace SpiderBeast.FilterResults
 
         public TextContentResult(HtmlNode node) : base(node) { }
 
+        private void RemoveUnuseNode(string xpath)
+        {
+            var comments = targetNode.SelectNodes(xpath);
+            if (comments == null)
+                return;
+       
+                comments.ForEach((n) => { (n as HtmlNode).Remove(); });
+                //foreach (HtmlNode item in comments)
+                //{
+                //    item.Remove();
+                //}
+          
+        }
 
         public override object GetResult()
         {
             //移除HtmlNode中的注释
-            var comments = targetNode.SelectNodes(".//comment()");
-            if (comments != null)
-            {
-                foreach (HtmlNode item in comments)
-                {
-                    item.Remove();
-                }
-            }
+            RemoveUnuseNode(".//comment()");
+
             //移除脚本
-            var script = targetNode.SelectNodes(".//script");
-            if (script != null)
-            {
-                foreach (HtmlNode item in script)
-                {
-                    item.Remove();
-                }
-            }
+            RemoveUnuseNode(".//script");
 
             return targetNode.InnerText;
         }

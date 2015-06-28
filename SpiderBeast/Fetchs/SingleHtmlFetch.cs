@@ -14,14 +14,15 @@ namespace SpiderBeast.Fetchs
     /// 基本拉取类型，将所有Filter的结果以文本汇总到文件中。
     /// </summary>
     //TODO 修改泛型类型的构造函数，让T支持一个htmlNode做参数的构造函数，T继承于FilterResult
-    public class SingleHtmlFetch <T> : Fetch where T:FilterResult, new()
+    public class SingleHtmlFetch<T> : Fetch where T : FilterResult, new()
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="url">要解析的URL地址</param>
         /// <param name="path">要写入的文件地址</param>
-        public SingleHtmlFetch(string url, string path) : base(url) {
+        public SingleHtmlFetch(string url, string path) : base(url)
+        {
             SetupDataManager(path);
         }
 
@@ -30,7 +31,8 @@ namespace SpiderBeast.Fetchs
         /// </summary>
         /// <param name="htmldoc">要解析的HTML文档</param>
         /// <param name="path">要写入的文件地址</param>
-        public SingleHtmlFetch(HtmlDocument htmldoc, string path) : base(htmldoc) {
+        public SingleHtmlFetch(HtmlDocument htmldoc, string path) : base(htmldoc)
+        {
             SetupDataManager(path);
         }
 
@@ -48,7 +50,7 @@ namespace SpiderBeast.Fetchs
             {
                 if (i.FiltAsNode(node))
                 {
-                    dataManagerPool[0].DataHandler(new T().SetTargetNode(node));
+                    dataManagerPool[0].DataHandler(new T() { TargetNode = node });
                 }
             }
         }
@@ -60,9 +62,9 @@ namespace SpiderBeast.Fetchs
 
         protected override void DataManagerCallBack(List<HtmlNode> results, int filterID)
         {
-            foreach(var i in results)
+            foreach (var i in results)
             {
-                dataManagerPool[0].DataHandler(new T().SetTargetNode(i));
+                dataManagerPool[0].DataHandler(new T() { TargetNode = i });
             }
         }
     }

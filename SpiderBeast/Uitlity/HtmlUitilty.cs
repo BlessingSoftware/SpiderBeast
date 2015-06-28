@@ -317,7 +317,14 @@ namespace SpiderBeast.Uitlity
                 //设置针对页面中所有链接的基准 URL
                 var basehref = doc.CreateElement("base");
                 basehref.SetAttributeValue("href", GetBaseUrl(url));
-                root.SelectSingleNode(XPATH_HEAD).ChildNodes.Add(basehref);
+                var head = root.SelectSingleNode(XPATH_HEAD);
+
+                //获取不规范的html的head标签
+                if (head==null)
+                {
+                    head = root.SelectSingleNode(XPATH_HEADEx);
+                }
+                head.ChildNodes.Add(basehref);
             }
         }
 
@@ -335,7 +342,8 @@ namespace SpiderBeast.Uitlity
 
         #region "扩展方法"
         const string XPATH_HEAD = "/html/head";
-        const string XPATH_TITLE = "/html/head/title";
+        const string XPATH_HEADEx = ".//head";
+        const string XPATH_TITLE = "//title";// "/html/head/title";
         const string XPATH_BASEHREF = "/html/head/base[@href]";
 
         /// <summary>
@@ -343,7 +351,7 @@ namespace SpiderBeast.Uitlity
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public static string Title(this HtmlDocument doc)
+        public static string GetTitle(this HtmlDocument doc)
         {
             return doc.DocumentNode.SelectSingleNode(XPATH_TITLE).InnerText;
         }
@@ -353,11 +361,16 @@ namespace SpiderBeast.Uitlity
         /// </summary>
         /// <param name="doc"></param>
         /// <returns>针对页面中所有链接的基准 URL，如果不存在则返回null</returns>
-        public static string BaseUrl(this HtmlDocument doc)
+        public static string GetBaseUrl(this HtmlDocument doc)
         {
             var b = doc.DocumentNode.SelectSingleNode(XPATH_BASEHREF);
             if (b == null)
             {
+                b = doc.DocumentNode.SelectSingleNode(XPATH_HEADEx+ "/base[@href]");
+                if (b!=null)
+                {
+                    return b.Attributes["href"].Value;
+                }
                 return null;
             }
             return b.Attributes["href"].Value;

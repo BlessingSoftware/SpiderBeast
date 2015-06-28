@@ -17,14 +17,25 @@ namespace SpiderBeast.Base
         /// </summary>
         public abstract int Priority { get; }
 
-
-        //TODO: 修改此比较方法，改用比较器比较Priority，否则将会把Priority相等的Rule视为同样的Rule
         public int CompareTo(object obj)
         {
             Rule ruleB = obj as Rule;
-            if (Priority > ruleB.Priority) return 1;
-            if (Priority == ruleB.Priority) return 0;
-            return -1;
+            if (ruleB == null)
+                return 0;
+            //if (Priority > ruleB.Priority) return 1;
+            //if (Priority == ruleB.Priority) return 0;
+            //return -1;
+            return this.CompareTo(ruleB);
+        }
+
+        /// <summary>
+        /// 比较两个Rule对象的优先级
+        /// </summary>
+        /// <param name="rul"></param>
+        /// <returns></returns>
+        public int CompareTo(Rule rul)
+        {
+            return Priority.CompareTo(rul.Priority);
         }
 
         /// <summary>

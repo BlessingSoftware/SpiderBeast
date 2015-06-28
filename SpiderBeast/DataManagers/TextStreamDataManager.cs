@@ -15,7 +15,7 @@ namespace SpiderBeast.DataManagers
         /// <summary>
         /// 写入文本时的编码
         /// </summary>
-        Encoding m_encoding;
+        protected Encoding m_encoding;
 
         /// <summary>
         /// 设置或获取文本的编码
@@ -28,14 +28,14 @@ namespace SpiderBeast.DataManagers
         /// <summary>
         /// 指定文件的地址
         /// </summary>
-        string filePath;
+     protected   string filePath;
 
         /// <summary>
         /// 追加模式。True为追加。
         /// </summary>
         bool appendMode = false;
 
-        StreamWriter w;
+        protected StreamWriter w;
 
         /// <summary>
         /// 文本流数据处理器构造函数。默认覆盖原文件。

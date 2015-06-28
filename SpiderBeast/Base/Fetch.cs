@@ -49,7 +49,7 @@ namespace SpiderBeast.Base
         /// </summary>
         protected HtmlDocument doc;
 
-        private FetchOrder mFetchOder = FetchOrder.OriginHtmlOrder;
+        protected FetchOrder mFetchOder;
 
         public enum FetchOrder : int
         {
@@ -63,6 +63,7 @@ namespace SpiderBeast.Base
         /// <param name="URL">要解析的URL地址</param>
         public Fetch(string URL)
         {
+            mFetchOder = FetchOrder.OriginHtmlOrder;
             targetURL = URL;
             doc = GetHtmlDocuments();
         }
@@ -73,6 +74,7 @@ namespace SpiderBeast.Base
         /// <param name="htmlDoc">要解析的Html文档</param>
         public Fetch(HtmlDocument htmlDoc)
         {
+            mFetchOder = FetchOrder.OriginHtmlOrder;
             doc = htmlDoc;
             hasLoaded = true;
             targetURL = null;
@@ -108,7 +110,7 @@ namespace SpiderBeast.Base
 
                 doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
                 //设置跳转url
-                HtmlUitilty.EnsureDocumentUrl(doc,targetURL);
+                HtmlUitilty.EnsureDocumentUrl(doc, targetURL);
             }
         }
 
@@ -141,7 +143,7 @@ namespace SpiderBeast.Base
         /// <summary>
         /// 开始解析Html文档。
         /// </summary>
-        public void StartFetch()
+        public virtual void StartFetch()
         {
             switch (mFetchOder)
             {

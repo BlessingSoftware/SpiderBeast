@@ -12,6 +12,10 @@ namespace SpiderBeast.Base
     /// </summary>
     public class Filter
     {
+        public Filter()
+        {
+        }
+
         public Filter(Rule r)
         {
             rule = r;
@@ -24,7 +28,7 @@ namespace SpiderBeast.Base
 
         List<HtmlNode> results = new List<HtmlNode>();
 
-        FilterResultDelegate mGetFilterResult;
+        protected FilterResultDelegate mGetFilterResult;
 
         /// <summary>
         /// 根据Filter的需求将Node封装成FilterResult。
@@ -42,7 +46,8 @@ namespace SpiderBeast.Base
         /// </summary>
         /// <param name="node">筛选范围的根节点，会遍历此节点的所有子节点。一般可以考虑将body节点作为根节点传入。</param>
         /// <returns>筛选后的结果集合</returns>
-        public virtual List<HtmlNode> FiltAsRoot(HtmlNode node) {
+        public virtual List<HtmlNode> FiltAsRoot(HtmlNode node)
+        {
             //DONE: 完成筛选器的FiltAsRoot虚方法的基本实现
             results.Clear();
             HtmlRecurver r = new HtmlRecurver(node, NodeFoundHandler);

@@ -10,19 +10,44 @@ namespace SpiderBeast.FilterResults
 {
     public class LinkContentResult : FilterResult
     {
-        public LinkContentResult() { }
+        public const string HrefAttr = "href";
+        public const string SrcAttr = "src";
+        private string attrName;
 
-        public LinkContentResult(HtmlNode node) : base(node) { }
+        public LinkContentResult() : this(null as HtmlNode) { }
+
+        public LinkContentResult(HtmlNode node, string attr = HrefAttr) : base(node)
+        {
+            attrName = attr;
+        }
 
         public override object GetResult()
         {
-            string url = targetNode.GetAttributeValue("href", "");
-            if (isRelativeUrl(url))
-            {
-                url = targetNode.OwnerDocument.BaseUrl() + url;
-            }
-            return (object)url;
+            //string url = targetNode.GetAttributeValue("href", "");
+            //if (isRelativeUrl(url))
+            //{
+            //    url = targetNode.OwnerDocument.GetBaseUrl() + url;
+            //}
+            //return (new WebFileInfo(AbsolutePath).OpenRead());
+            return AbsolutePath;
         }
+
+        /// <summary>
+        /// 获取链接的绝对路径
+        /// </summary>
+        public string AbsolutePath
+        {
+            get
+            {
+                string url = targetNode.GetAttributeValue(attrName, string.Empty);
+                if (isRelativeUrl(url))
+                {
+                    url = targetNode.OwnerDocument.GetBaseUrl() + url;
+                }
+                return url;
+            }
+        }
+
 
         bool isRelativeUrl(string url)
         {

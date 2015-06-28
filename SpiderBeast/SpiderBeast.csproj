@@ -40,10 +40,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\DataManager.cs" />
+    <Compile Include="Base\EmbedResoureFilter.cs" />
     <Compile Include="Base\Fetch.cs" />
     <Compile Include="Base\Filter.cs" />
     <Compile Include="Base\FilterResult.cs" />
+    <Compile Include="Base\FilterType.cs" />
     <Compile Include="Base\Rule.cs" />
+    <Compile Include="DataManagers\EmbedHtmlStringDataManager.cs" />
+    <Compile Include="Fetchs\EmbedHtmlStringFetch.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
     <Compile Include="FilterResults\LinkContentResult.cs" />
     <Compile Include="FilterResults\TextContentResult.cs" />

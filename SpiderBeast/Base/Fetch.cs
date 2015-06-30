@@ -109,8 +109,16 @@ namespace SpiderBeast.Base
                 web.PreRequest += HtmlUitilty.SetRequestHandler;
 
                 doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
+                if (doc.StreamEncoding!=doc.DeclaredEncoding)
+                {
+                    WebFileInfo wfi = new WebFileInfo(targetURL);
+                    var stream = wfi.OpenRead();
+                    doc.Load(stream, doc.DeclaredEncoding);
+                    stream.Close();
+                }
                 //设置跳转url
                 HtmlUitilty.EnsureDocumentUrl(doc, targetURL);
+                hasLoaded = true;
             }
         }
 

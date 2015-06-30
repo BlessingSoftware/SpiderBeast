@@ -27,26 +27,31 @@ namespace SpiderBeast.Test
             http://files.qidian.com/Author6/3463725/84452150.txt
             
             */
-            string tmp = Path.GetTempFileName();
+            //string tmp = Path.GetTempFileName();
 
-            EmbedHtmlStringFetch ehsf = new EmbedHtmlStringFetch(url, tmp);
-            EmbedResoureFilter erf = new EmbedResoureFilter(FilterType.NodeID) { Start = "chaptercontent", Target = "script[@src]" };
+            //EmbedHtmlStringFetch ehsf = new EmbedHtmlStringFetch(url, tmp);
+            //EmbedResoureFilter erf = new EmbedResoureFilter(FilterType.NodeID) { Start = "chaptercontent", Target = "script[@src]" };
 
-            ehsf.AddFilter(erf);
-            ehsf.StartFetch();
-            var filename = ehsf.GetHtmlDocuments().GetTitle();// = Regex.Match(url, ",(\\w*)\\.aspx").Groups[1].Value + ".txt";
-            
+            //ehsf.AddFilter(erf);
+            //ehsf.StartFetch();
+            //var filename = ehsf.GetHtmlDocuments().GetTitle();// = Regex.Match(url, ",(\\w*)\\.aspx").Groups[1].Value + ".txt";
+            var filename = "ss";
+            url = "http://www.snwx.com/book/32/32820/13435471.html";
+            var ff=HtmlUitilty.GetStringByUrl(url);
+
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ensurePath(filename)+".txt");
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-            File.Move(tmp, path);
-            //SingleHtmlFetch<LinkContentResult> sf = new SingleHtmlFetch<LinkContentResult>(url, path);
-            ////TypeRule tr = new TypeRule("link");
-            //sf.AddFilter(new Filter(new QiDianRule()));
-            //sf.StartFetch();
-            //Console.WriteLine(Uitlity.HtmlUitilty.GetStringByUrl(url));
+            //if (File.Exists(path))
+            //{
+            //    File.Delete(path);
+            //}
+            //File.Move(tmp, path);
+
+            SingleHtmlFetch<TextContentResult> sf = new SingleHtmlFetch<TextContentResult>(url, path);
+            //TypeRule tr = new TypeRule("link");
+            sf.AddFilter(new Filter(new TypeRule("div")));
+            var doc=sf.GetHtmlDocuments();
+            sf.StartFetch();
+            // Console.WriteLine(Uitlity.HtmlUitilty.GetStringByUrl(url));
             Console.WriteLine("Ready");
             Console.ReadKey();
         }

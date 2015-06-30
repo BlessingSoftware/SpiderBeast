@@ -12,6 +12,7 @@ using SpiderBeast.FilterResults;
 using System.IO;
 using HtmlAgilityPack;
 
+
 namespace SpiderBeast.Test
 {
 
@@ -22,38 +23,14 @@ namespace SpiderBeast.Test
     {
         static void Main(string[] args)
         {
-            string url = "http://read.qidian.com/BookReaderNew/3463725,84452150.aspx";// ;"http://manhua.dmzj.com/"
-            /*
-            http://files.qidian.com/Author6/3463725/84452150.txt
-            
-            */
-            //string tmp = Path.GetTempFileName();
+            var url = "http://www.ybdu.com/xiaoshuo/0/910/4196398.html";
+            var filename = "test";
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ensurePath(filename) + ".txt");
+            StreamWriter sw = new StreamWriter(path, false);
 
-            //EmbedHtmlStringFetch ehsf = new EmbedHtmlStringFetch(url, tmp);
-            //EmbedResoureFilter erf = new EmbedResoureFilter(FilterType.NodeID) { Start = "chaptercontent", Target = "script[@src]" };
-
-            //ehsf.AddFilter(erf);
-            //ehsf.StartFetch();
-            //var filename = ehsf.GetHtmlDocuments().GetTitle();// = Regex.Match(url, ",(\\w*)\\.aspx").Groups[1].Value + ".txt";
-            var filename = "ss";
-            url = "http://www.snwx.com/book/32/32820/13435471.html";
-            var ff=HtmlUitilty.GetStringByUrl(url);
-
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ensurePath(filename)+".txt");
-            //if (File.Exists(path))
-            //{
-            //    File.Delete(path);
-            //}
-            //File.Move(tmp, path);
-
-            SingleHtmlFetch<TextContentResult> sf = new SingleHtmlFetch<TextContentResult>(url, path);
-            //TypeRule tr = new TypeRule("link");
-            sf.AddFilter(new Filter(new TypeRule("div")));
-            var doc=sf.GetHtmlDocuments();
-            sf.StartFetch();
-            // Console.WriteLine(Uitlity.HtmlUitilty.GetStringByUrl(url));
-            Console.WriteLine("Ready");
-            Console.ReadKey();
+            YBDSingleHtmlFetch y = new YBDSingleHtmlFetch(url, sw);
+            y.StartFetch();
+            sw.Close();
         }
 
         static string ensurePath(string str)

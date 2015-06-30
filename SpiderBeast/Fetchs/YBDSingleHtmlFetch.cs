@@ -56,8 +56,14 @@ namespace SpiderBeast.Fetchs
         public override void StartFetch()
         {
             var doc = GetHtmlDocuments();
+            var title = doc.GetElementbyId("content").SelectSingleNode("./div/div/h1");
+            swriter.WriteLine(title.InnerText.Trim());
+            swriter.WriteLine("");
             var content = doc.GetElementbyId("htmlContent");
-            swriter.Write(content.InnerText);
+            var s = content.InnerText.Trim().Replace("&nbsp;&nbsp;&nbsp;&nbsp;", "    ").Replace("\r\n\r\n","\r\n");
+            var cut = s.IndexOf("       show_style();");
+            swriter.Write(s.Substring(0, cut));
+            swriter.WriteLine("");
         }
 
         protected override void DataManagerCallBack(List<HtmlNode> results, int filterID)

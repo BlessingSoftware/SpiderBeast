@@ -11,7 +11,7 @@ namespace SpiderBeast.Fetchs
     /// <summary>
     /// 一本读全本小说网"http://www.ybdu.com/"的目录抓取类
     /// </summary>
-    class YBDMenuListFetch : Fetch
+    public class YBDMenuListFetch : Fetch
     {
         /// <summary>
         /// 目录的URL地址

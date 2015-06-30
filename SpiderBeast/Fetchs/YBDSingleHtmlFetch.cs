@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SpiderBeast.Fetchs
 {
-    class YBDSingleHtmlFetch : Fetch
+    public class YBDSingleHtmlFetch : Fetch
     {
 
         StreamWriter swriter;
@@ -55,22 +55,24 @@ namespace SpiderBeast.Fetchs
         /// </summary>
         public override void StartFetch()
         {
-            
+            var doc = GetHtmlDocuments();
+            var content = doc.GetElementbyId("htmlContent");
+            swriter.Write(content.InnerText);
         }
 
         protected override void DataManagerCallBack(List<HtmlNode> results, int filterID)
         {
-            throw new NotImplementedException();
+            
         }
 
         protected override void FetchCallBack(HtmlNode node)
         {
-            throw new NotImplementedException();
+            
         }
 
         protected override void initDataManger()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

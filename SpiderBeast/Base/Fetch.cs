@@ -32,7 +32,7 @@ namespace SpiderBeast.Base
         /// <summary>
         /// 目标URL。
         /// </summary>
-        string targetURL;
+        protected string targetURL;
 
         /// <summary>
         /// 筛选器集合。

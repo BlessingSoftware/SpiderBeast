@@ -49,6 +49,8 @@
     <Compile Include="DataManagers\EmbedHtmlStringDataManager.cs" />
     <Compile Include="Fetchs\EmbedHtmlStringFetch.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
+    <Compile Include="Fetchs\YBDMenuListFetch.cs" />
+    <Compile Include="Fetchs\YBDSingleHtmlFetch.cs" />
     <Compile Include="FilterResults\LinkContentResult.cs" />
     <Compile Include="FilterResults\TextContentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

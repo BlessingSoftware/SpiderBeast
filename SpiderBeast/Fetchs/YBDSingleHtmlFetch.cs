@@ -64,6 +64,7 @@ namespace SpiderBeast.Fetchs
             var cut = s.IndexOf("       show_style();");
             swriter.Write(s.Substring(0, cut));
             swriter.WriteLine("");
+            swriter.WriteLine("");
         }
 
         protected override void DataManagerCallBack(List<HtmlNode> results, int filterID)

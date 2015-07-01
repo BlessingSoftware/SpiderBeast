@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,24 @@ namespace SpiderBeast.Base
     /// <summary>
     /// 筛选结果基本抽象类。表示一个筛选器筛选出来的结果。筛选器结果的类型应该由筛选器本身来决定。
     /// </summary>
+    [DebuggerDisplay("TargetNode={targetNode}")]
     public abstract class FilterResult
     {
         public FilterResult(HtmlNode node)
         {
-            targetNode = node.Clone();
+            if (node != null)
+                targetNode = node.Clone();
         }
+
+        public FilterResult() { }
+
+        public FilterResult SetTargetNode(HtmlNode node)
+        {
+            targetNode = node;
+            return this;
+        }
+
+        public HtmlNode TargetNode { get { return targetNode.Clone(); } set { targetNode = value; } }
 
         /// <summary>
         /// 目标节点的存档

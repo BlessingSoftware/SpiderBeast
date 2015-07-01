@@ -6,14 +6,14 @@ using System.Text;
 namespace SpiderBeast.Uitlity
 {
     /// <summary>
-    /// 设定筛选规则优先级参数。数字越小，优先级越高。
+    /// 设定筛选规则优先级参数基础值。数字越小，优先级越高。注意，实际值可能是多层次累加值。
     /// </summary>
     public enum RulePriority : int
     {
-        TypeRulePriority = 0,
+        ConstanRulePriority = 0,
+        TypeRulePriority = 1,
         AttributeRulePriority = 1,
+        LogicRulePriority = 2,
         RelativeRulePriority = 3,
-        LogicRulePriority = 5,
-
     }
 }

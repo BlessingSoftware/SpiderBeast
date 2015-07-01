@@ -32,7 +32,7 @@ namespace SpiderBeast.Base
         /// <summary>
         /// 目标URL。
         /// </summary>
-        string targetURL;
+        protected string targetURL;
 
         /// <summary>
         /// 筛选器集合。
@@ -49,12 +49,21 @@ namespace SpiderBeast.Base
         /// </summary>
         protected HtmlDocument doc;
 
+        protected FetchOrder mFetchOder;
+
+        public enum FetchOrder : int
+        {
+            OriginHtmlOrder = 0,
+            FilterOrder = 1
+        }
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="URL">要解析的URL地址</param>
         public Fetch(string URL)
         {
+            mFetchOder = FetchOrder.OriginHtmlOrder;
             targetURL = URL;
             doc = GetHtmlDocuments();
         }
@@ -65,9 +74,16 @@ namespace SpiderBeast.Base
         /// <param name="htmlDoc">要解析的Html文档</param>
         public Fetch(HtmlDocument htmlDoc)
         {
+            mFetchOder = FetchOrder.OriginHtmlOrder;
             doc = htmlDoc;
             hasLoaded = true;
             targetURL = null;
+        }
+
+        public FetchOrder StartFetchOrder
+        {
+            get { return mFetchOder; }
+            set { mFetchOder = value; }
         }
 
         /// <summary>
@@ -86,13 +102,23 @@ namespace SpiderBeast.Base
         /// </summary>
         public void RefreshHtml()
         {
-            if(targetURL != null)
+            if (targetURL != null)
             {
                 HtmlWeb web = new HtmlWeb();
                 //为 HtmlWeb 添加对gzip压缩的网页的支持，以及使用Cookie伪装
-                web.PreRequest +=HtmlUitilty.SetRequestHandler;
+                web.PreRequest += HtmlUitilty.SetRequestHandler;
 
-                doc =web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
+                doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
+                if (doc.StreamEncoding!=doc.DeclaredEncoding)
+                {
+                    WebFileInfo wfi = new WebFileInfo(targetURL);
+                    var stream = wfi.OpenRead();
+                    doc.Load(stream, doc.DeclaredEncoding);
+                    stream.Close();
+                }
+                //设置跳转url
+                HtmlUitilty.EnsureDocumentUrl(doc, targetURL);
+                hasLoaded = true;
             }
         }
 
@@ -125,17 +151,31 @@ namespace SpiderBeast.Base
         /// <summary>
         /// 开始解析Html文档。
         /// </summary>
-        public void StartFetch()
+        public virtual void StartFetch()
         {
-            initDataManger();
-            FetchStartEvent();
+            switch (mFetchOder)
+            {
+                case FetchOrder.OriginHtmlOrder:
+                    initDataManger();
+                    FetchStartEvent();
 
-            HtmlNode node = doc.DocumentNode;
-            HtmlRecurver recure = new HtmlRecurver(node, FetchCallBack);
-            recure.Recure();
+                    HtmlNode node = doc.DocumentNode;
+                    HtmlRecurver recure = new HtmlRecurver(node, FetchCallBack);
+                    recure.Recure();
 
-            FetchEndEvent();
+                    FetchEndEvent();
+                    break;
+
+                case FetchOrder.FilterOrder:
+                    for (int i = 0; i < filterSet.Count; i++)
+                    {
+                        DataManagerCallBack(filterSet[i].FiltAsRoot(doc.DocumentNode), i);
+                    }
+                    break;
+            }
         }
+
+        abstract protected void DataManagerCallBack(List<HtmlNode> results, int filterID);
 
         /// <summary>
         /// 回调函数，用于让子类实现多态性。基类会递归的将每一个Node作为参数调用此回调函数。

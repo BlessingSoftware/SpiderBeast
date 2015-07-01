@@ -42,11 +42,11 @@ namespace SpiderBeast.Rules
             attributeValue = value;
         }
 
-        public override RulePriority Priority
+        public override int Priority
         {
             get
             {
-                return RulePriority.AttributeRulePriority;
+                return (int)RulePriority.AttributeRulePriority;
             }
         }
     }

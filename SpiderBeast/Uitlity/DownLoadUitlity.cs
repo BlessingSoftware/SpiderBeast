@@ -22,6 +22,42 @@ namespace SpiderBeast.Uitlity
         /// <param name="folder">保存的目录</param>
         public static void DownLoadFile(WebFileInfo wfi, string saveFileName, string folder)
         {
+            var stream = OpenRead(wfi);
+            DirectoryInfo dir = new DirectoryInfo(folder);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+            try
+            {
+                using (var outStream = File.Create(Path.Combine(folder, saveFileName), BUFFER_SIZE))
+                {
+                    byte[] buff = new byte[BUFFER_SIZE];
+                    int k = BUFFER_SIZE;
+                    while (k > 0)
+                    {
+                        k = stream.Read(buff, 0, BUFFER_SIZE);
+                        outStream.Write(buff, 0, k);
+                    }
+                }
+
+            }
+            finally
+            {
+                stream.Close();
+
+            }
+
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="wfi"></param>
+        /// <returns></returns>
+        public static Stream OpenRead(this WebFileInfo wfi)
+        {
             var req = HtmlUitilty.GetRequestByUrl(wfi.Href);
             if (req is HttpWebRequest)
             {
@@ -29,38 +65,22 @@ namespace SpiderBeast.Uitlity
             }
             try
             {
-                using (WebResponse resp = req.GetResponse())
-                {
-                    var stream = resp.GetResponseStream();
-                    //判断流是否经过压缩
-                    switch (resp.Headers[HttpResponseHeader.ContentEncoding])
-                    {
-                        case "gzip":
-                            stream = new GZipStream(stream, CompressionMode.Decompress);
-                            break;
-                        case "deflate":
-                            stream = new DeflateStream(stream, CompressionMode.Decompress);
-                            break;
-                        default:
-                            break;
-                    }
-                    DirectoryInfo dir = new DirectoryInfo(folder);
-                    if (!dir.Exists)
-                    {
-                        dir.Create();
-                    }
-                    using (var outStream = File.Create(Path.Combine(folder, saveFileName), BUFFER_SIZE))
-                    {
-                        byte[] buff = new byte[BUFFER_SIZE];
-                        int k = BUFFER_SIZE;
-                        while (k > 0)
-                        {
-                            k = stream.Read(buff, 0, BUFFER_SIZE);
-                            outStream.Write(buff, 0, k);
-                        }
-                    }
-                }
+                WebResponse resp = req.GetResponse();
 
+                var stream = resp.GetResponseStream();
+                //判断流是否经过压缩
+                switch (resp.Headers[HttpResponseHeader.ContentEncoding])
+                {
+                    case "gzip":
+                        stream = new GZipStream(stream, CompressionMode.Decompress);
+                        break;
+                    case "deflate":
+                        stream = new DeflateStream(stream, CompressionMode.Decompress);
+                        break;
+                    default:
+                        break;
+                }
+                return stream;
             }
             catch (Exception ex)
             {
@@ -71,6 +91,18 @@ namespace SpiderBeast.Uitlity
                 
 #endif
             }
+        }
+
+        public static string OpenReadString(this WebFileInfo wfi)
+        {
+            //var stram = OpenRead(wfi);
+            return OpenReadString(wfi,Encoding.Default);
+        }
+        public static string OpenReadString(this WebFileInfo wfi,Encoding e)
+        {
+            var stram = OpenRead(wfi);
+            StreamReader reader = new StreamReader(stram, e);            
+            return reader.ReadToEnd();
         }
     }
 }

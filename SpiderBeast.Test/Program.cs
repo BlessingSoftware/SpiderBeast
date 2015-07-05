@@ -24,8 +24,8 @@ namespace SpiderBeast.Test
         static void Main(string[] args)
         {
 
-            YBDUitlity();
-
+            //YBDUitlity();
+            TencentACTest();
             //TestMenuList("http://www.ybdu.com/xiaoshuo/0/910/");
 
             //Console.WriteLine("Ready");
@@ -104,7 +104,7 @@ namespace SpiderBeast.Test
             YBDMenuListFetch ybdM = new YBDMenuListFetch(url);
             ybdM.StartFetch();
 
-            if(ybdM.Chapters.Count == 0)
+            if (ybdM.Chapters.Count == 0)
             {
                 Console.WriteLine("没有找到任何章节，这中间一定有什么误会！任意键退出。");
                 return;
@@ -130,5 +130,40 @@ namespace SpiderBeast.Test
             sw.Close();
             Console.WriteLine("都下完啦，累死了！任意键退出啦！");
         }
+
+
+        static void TencentACTest(string url = "http://ac.qq.com/ComicView/chapter/id/534025/cid/1")// "http://ac.qq.com/ComicView/chapter/id/522337/cid/15"
+        {
+            TencentIndexFetch d = new TencentIndexFetch("http://ac.qq.com/Comic/comicInfo/id/522337");
+            d.StartFetch();
+            if (d.Chapters != null)
+            {
+                return;
+                //获取章节完成
+                //TODO:添加章节下载并打包压缩的功能
+            }
+            //url = "http://ac.qq.com/ComicView/chapter/id/522337/cid/15";
+            TencentComicFetchs tcf = new TencentComicFetchs(url);
+            tcf.StartFetch();
+            string mydoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            int t = tcf.Chapter.Count;
+            int c = 1;
+            int t2 = t;
+            while (t > 0)
+                t /= 10; c++;
+
+            string tmp = new string('0', c);
+            int i = 0;
+            while (i < t2)
+            {
+                DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[i]), i.ToString(tmp) + ".jpg", mydoc);
+                Console.WriteLine("已完成{0}/{1}", ++i, t2);
+            }
+            //DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[0]), "s.png", "");
+
+            Console.WriteLine("Ready");
+        }
+
     }
 }

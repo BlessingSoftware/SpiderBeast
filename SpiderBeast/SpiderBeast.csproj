@@ -47,8 +47,12 @@
     <Compile Include="Base\FilterType.cs" />
     <Compile Include="Base\Rule.cs" />
     <Compile Include="DataManagers\EmbedHtmlStringDataManager.cs" />
+    <Compile Include="Documents\Chapter.cs" />
     <Compile Include="Fetchs\EmbedHtmlStringFetch.cs" />
+    <Compile Include="Fetchs\IndexFetchsBase.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
+    <Compile Include="Fetchs\TencentComicFetchs.cs" />
+    <Compile Include="Fetchs\TencentIndexFetch.cs" />
     <Compile Include="Fetchs\YBDMenuListFetch.cs" />
     <Compile Include="Fetchs\YBDSingleHtmlFetch.cs" />
     <Compile Include="FilterResults\LinkContentResult.cs" />
@@ -96,9 +100,7 @@
       <Name>ICSharpCode.SharpZLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Documents\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

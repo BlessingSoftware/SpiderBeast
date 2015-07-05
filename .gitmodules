@@ -1,0 +1,3 @@
+[submodule "SharpZipLib"]
+	path = SharpZipLib
+	url = git://github.com/icsharpcode/SharpZipLib.git

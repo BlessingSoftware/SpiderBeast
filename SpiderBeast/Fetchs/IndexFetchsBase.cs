@@ -63,7 +63,7 @@ namespace SpiderBeast.Fetchs
             //this.ChildrenRule = new NodeRule(NodeFilterType.ByXPath, ".//li/a[@href]");
 
             //this.Children = new List<HtmlNode>();
-            this.menuURL = targetURL;
+            this.menuURL = targetURL.Substring(0,targetURL.IndexOf('/',8));
         }
 
         //TODO: 首先做好初始化函数，然后看一下 YBDSingleHtmlFetch 类的接口。
@@ -81,7 +81,7 @@ namespace SpiderBeast.Fetchs
             int i = 0;
             foreach (var item in Children)
             {
-                Chapters.Add(new Chapter(item.InnerText, targetURL + item.Attributes["href"].Value, i++));
+                Chapters.Add(new Chapter(item.InnerText, menuURL + item.Attributes["href"].Value, i++));
             }
         }
 

@@ -129,6 +129,14 @@ namespace SpiderBeast.Uitlity
                 }
             }
         }
+        /// <summary>
+        /// 压缩多层目录
+        /// </summary>
+        /// <param name="strDirectory">The directory.</param>
+        public static void ZipFileDirectory(string strDirectory)
+        {
+            ZipFileDirectory(strDirectory, strDirectory + CompressUitlity.DefaultExtension);
+        }
 
         /// <summary>
         /// 压缩多层目录

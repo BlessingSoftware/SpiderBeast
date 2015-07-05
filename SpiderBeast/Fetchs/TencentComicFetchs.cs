@@ -27,7 +27,7 @@ namespace SpiderBeast.Fetchs
             {
                 var doc = this.GetHtmlDocuments();
                 Engine jsEngine = new Engine();//html/body/script[last()-3]
-                var item = doc.DocumentNode.SelectSingleNode("html/body/script");
+                var item = doc.DocumentNode.SelectSingleNode("html/body/script[@type='text/javascript' and not(@src)]");
                 jsEngine.Execute(item.InnerText);
                 var str = jsEngine.GetValue("DATA").AsString();
                 int i = str.Length % 4;

@@ -47,8 +47,12 @@
     <Compile Include="Base\FilterType.cs" />
     <Compile Include="Base\Rule.cs" />
     <Compile Include="DataManagers\EmbedHtmlStringDataManager.cs" />
+    <Compile Include="Documents\Chapter.cs" />
     <Compile Include="Fetchs\EmbedHtmlStringFetch.cs" />
+    <Compile Include="Fetchs\IndexFetchsBase.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
+    <Compile Include="Fetchs\TencentComicFetchs.cs" />
+    <Compile Include="Fetchs\TencentIndexFetch.cs" />
     <Compile Include="Fetchs\YBDMenuListFetch.cs" />
     <Compile Include="Fetchs\YBDSingleHtmlFetch.cs" />
     <Compile Include="FilterResults\LinkContentResult.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="DataManagers\TextStreamDataManager.cs" />
     <Compile Include="Rules\TrueRule.cs" />
     <Compile Include="Rules\TypeRule.cs" />
+    <Compile Include="Uitlity\CompressUitlity.cs" />
     <Compile Include="Uitlity\Delegates.cs" />
     <Compile Include="Uitlity\DownLoadUitlity.cs" />
     <Compile Include="Uitlity\HtmlRecurver.cs" />
@@ -82,9 +87,13 @@
       <Project>{193bb801-054f-4729-9d5d-fce1e32594bf}</Project>
       <Name>HtmlAgilityPack</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LitJson\LitJson.csproj">
-      <Project>{53758eec-f754-45c5-beb0-5369114df7c8}</Project>
+    <ProjectReference Include="..\LitJson.vs\LitJson.csproj">
+      <Project>{A3B81208-EC5A-4A66-BFA3-084AF9977C45}</Project>
       <Name>LitJson</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpZipLib\src\ICSharpCode.SharpZLib.csproj">
+      <Project>{0e7413ff-eb9e-4714-acf2-be3a6a7b2ffd}</Project>
+      <Name>ICSharpCode.SharpZLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

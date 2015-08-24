@@ -24,8 +24,8 @@ namespace SpiderBeast.Test
         static void Main(string[] args)
         {
 
-            YBDUitlity();
-
+            //YBDUitlity();
+            TencentACTest();
             //TestMenuList("http://www.ybdu.com/xiaoshuo/0/910/");
 
             //Console.WriteLine("Ready");
@@ -104,7 +104,7 @@ namespace SpiderBeast.Test
             YBDMenuListFetch ybdM = new YBDMenuListFetch(url);
             ybdM.StartFetch();
 
-            if(ybdM.Chapters.Count == 0)
+            if (ybdM.Chapters.Count == 0)
             {
                 Console.WriteLine("没有找到任何章节，这中间一定有什么误会！任意键退出。");
                 return;
@@ -130,5 +130,84 @@ namespace SpiderBeast.Test
             sw.Close();
             Console.WriteLine("都下完啦，累死了！任意键退出啦！");
         }
+
+
+        static void TencentACTest(string url = "http://ac.qq.com/Comic/comicInfo/id/530132")// "http://ac.qq.com/ComicView/chapter/id/522337/cid/15"//= "http://ac.qq.com/ComicView/chapter/id/534025/cid/1"
+        {
+            TencentIndexFetch d = new TencentIndexFetch(url);//http://ac.qq.com/Comic/comicInfo/id/522337
+            d.StartFetch();
+            if (d.Chapters != null)
+            {
+                Console.WriteLine(d.Message);
+                Console.WriteLine("从第几话下起：");
+                int id = int.Parse(Console.ReadLine()) - 1;
+                Console.WriteLine("下几话(负数代表从所选话数下到最新话)：");
+                int count = int.Parse(Console.ReadLine());
+                if (count < 0)
+                    count = d.Chapters.Count;
+                string mydoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                int t, t2, c, x, y;
+                for (int i = id; i < d.Chapters.Count; i++)
+                {
+                    if (count < 1)
+                        break;
+                    TencentComicFetchs tcf = new TencentComicFetchs(d.Chapters[i].Href);
+                    tcf.StartFetch();
+                    t = tcf.Chapter.Count; c = 1; t2 = t;
+                    while (t > 0)
+                        t /= 10; c++;
+                    string tmp = new string('0', c);
+                    string mypath = Path.Combine(mydoc, tcf.Chapter.ChapterName);
+                    if (!Directory.Exists(mypath))
+                        Directory.CreateDirectory(mypath);
+
+                    DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[0]), 0.ToString(tmp) + ".jpg", mypath);
+                    Console.Write("正在下载:{0},已完成", tcf.Chapter.ChapterName);
+                    x = Console.CursorLeft ;
+                    y = Console.CursorTop;
+                    Console.SetCursorPosition(x, y);
+                    Console.Write("1/{0}", t2);
+
+                    for (int j = 1; j < t2; j++)
+                    {
+                        DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[j]), j.ToString(tmp) + ".jpg", mypath);
+
+                        Console.SetCursorPosition(x, y);
+                        Console.Write("{0}/{1}", ++j, t2);
+                    }
+                    Console.WriteLine();
+                    CompressUitlity.ZipFileDirectory(mypath);
+                    Directory.Delete(mypath, true);
+                    count--;
+                }
+
+                //return;
+                //获取章节完成
+                //TODO:添加章节下载并打包压缩的功能
+            }
+            //url = "http://ac.qq.com/ComicView/chapter/id/522337/cid/15";
+
+            //TencentComicFetchs tcf = new TencentComicFetchs(url);
+            //tcf.StartFetch();
+            //string mydoc = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            //int t = tcf.Chapter.Count;
+            //int c = 1;
+            //int t2 = t;
+            //while (t > 0)
+            //    t /= 10; c++;
+
+            //string tmp = new string('0', c);
+            //int i = 0;
+            //while (i < t2)
+            //{
+            //    DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[i]), i.ToString(tmp) + ".jpg", mydoc);
+            //    Console.WriteLine("已完成{0}/{1}", ++i, t2);
+            //}
+            //DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[0]), "s.png", "");
+
+            Console.WriteLine("Ready");
+        }
+
     }
 }

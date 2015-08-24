@@ -87,8 +87,12 @@
       <Project>{193bb801-054f-4729-9d5d-fce1e32594bf}</Project>
       <Name>HtmlAgilityPack</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Jint\Jint.csproj">
+      <Project>{678738da-f723-4920-b9e5-cad667104bda}</Project>
+      <Name>Jint</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LitJson.vs\LitJson.csproj">
-      <Project>{A3B81208-EC5A-4A66-BFA3-084AF9977C45}</Project>
+      <Project>{a3b81208-ec5a-4a66-bfa3-084af9977c45}</Project>
       <Name>LitJson</Name>
     </ProjectReference>
     <ProjectReference Include="..\SharpZipLib\src\ICSharpCode.SharpZLib.csproj">

@@ -1,8 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-# SharpDevelop 4.4
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderBeast", "SpiderBeast\SpiderBeast.csproj", "{53758EEC-F754-45C5-BEB0-5369114DF7C7}"
 EndProject
@@ -15,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitJson", "LitJson.vs\LitJson.csproj", "{A3B81208-EC5A-4A66-BFA3-084AF9977C45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpZLib", "SharpZipLib\src\ICSharpCode.SharpZLib.csproj", "{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpiderBeast.UnitTest", "SpiderBeast.UnitTest\SpiderBeast.UnitTest.csproj", "{730E4062-A237-4AA8-B60E-5088F2CEF868}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,15 +39,18 @@ Global
 		{2F78BED8-F03F-4FC8-85AF-43FA0C61D34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F78BED8-F03F-4FC8-85AF-43FA0C61D34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F78BED8-F03F-4FC8-85AF-43FA0C61D34F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		===== = =
-		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B81208-EC5A-4A66-BFA3-084AF9977C45}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E7413FF-EB9E-4714-ACF2-BE3A6A7B2FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{730E4062-A237-4AA8-B60E-5088F2CEF868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{730E4062-A237-4AA8-B60E-5088F2CEF868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{730E4062-A237-4AA8-B60E-5088F2CEF868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{730E4062-A237-4AA8-B60E-5088F2CEF868}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

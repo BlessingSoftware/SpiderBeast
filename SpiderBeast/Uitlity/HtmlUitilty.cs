@@ -100,6 +100,16 @@ namespace SpiderBeast.Uitlity
             set { s_useIECookie = value; }
         }
 
+        /// <summary>
+        /// 设置浏览器标识
+        /// </summary>
+        private static string s_userAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x";
+        public static string UserAgent
+        {
+            get { return s_userAgent; }
+            set { s_userAgent = value; }
+        }
+
         #endregion
 
         /// <summary>
@@ -220,8 +230,8 @@ namespace SpiderBeast.Uitlity
         /// <returns></returns>
         public static WebRequest GetRequestByUri(Uri uri)
         {
-            WebRequest req = WebRequest.Create(uri);
-
+            WebRequest req = WebRequest.CreateDefault(uri);
+            
             if (s_useIECookie)
             {
                 //TODO: 实现使用IE Cookie
@@ -232,6 +242,7 @@ namespace SpiderBeast.Uitlity
             if (req is HttpWebRequest)
             {
                 SetRequestHandler(req as HttpWebRequest);
+                (req as HttpWebRequest).UserAgent = UserAgent;
             }
             return req;
         }
@@ -248,9 +259,9 @@ namespace SpiderBeast.Uitlity
                 url = HTTP_Protocol + url;
             }
             Uri myuri = new Uri(url);
-            WebRequest req = WebRequest.Create(myuri);
+            //WebRequest req = WebRequest.Create(myuri);
 
-            req.Timeout = 100000;
+            //req.Timeout = 100000;
             return GetRequestByUri(myuri);
         }
 
@@ -300,7 +311,7 @@ namespace SpiderBeast.Uitlity
             var doc = new HtmlDocument();
             doc.LoadHtml(GetStringByUrl(url));
 
-            EnsureDocumentUrl(doc,url);
+            EnsureDocumentUrl(doc, url);
             return doc;
         }
 
@@ -309,7 +320,7 @@ namespace SpiderBeast.Uitlity
         /// </summary>
         /// <param name="doc"></param>
         /// <param name="url">网页的网址</param>
-        public static void EnsureDocumentUrl(HtmlDocument doc,string url)
+        public static void EnsureDocumentUrl(HtmlDocument doc, string url)
         {
             var root = doc.DocumentNode;
             if (root.SelectSingleNode(XPATH_HEAD) == null)
@@ -320,7 +331,7 @@ namespace SpiderBeast.Uitlity
                 var head = root.SelectSingleNode(XPATH_HEAD);
 
                 //获取不规范的html的head标签
-                if (head==null)
+                if (head == null)
                 {
                     head = root.SelectSingleNode(XPATH_HEADEx);
                 }
@@ -366,8 +377,8 @@ namespace SpiderBeast.Uitlity
             var b = doc.DocumentNode.SelectSingleNode(XPATH_BASEHREF);
             if (b == null)
             {
-                b = doc.DocumentNode.SelectSingleNode(XPATH_HEADEx+ "/base[@href]");
-                if (b!=null)
+                b = doc.DocumentNode.SelectSingleNode(XPATH_HEADEx + "/base[@href]");
+                if (b != null)
                 {
                     return b.Attributes["href"].Value;
                 }

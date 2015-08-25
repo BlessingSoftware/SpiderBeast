@@ -19,7 +19,7 @@ namespace SpiderBeast.Uitlity
         /// <summary>
         /// 设置、获取压缩目录时使用的默认扩展名
         /// </summary>
-        /// <remarks>默认值为".cbz"</remarks>
+        /// <remarks>默认值为".zip"</remarks>
         public static string DefaultExtension { get { return s_ext; }set { s_ext = value; } }
 
         static Encoding s_encoding;
@@ -31,7 +31,7 @@ namespace SpiderBeast.Uitlity
 
         static CompressUitlity()
         {
-            s_ext = ".cbz";
+            s_ext = ".zip";
             s_encoding = Encoding.Default;
         }
 

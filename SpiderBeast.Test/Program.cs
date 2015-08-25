@@ -168,14 +168,15 @@ namespace SpiderBeast.Test
                     Console.SetCursorPosition(x, y);
                     Console.Write("1/{0}", t2);
 
-                    for (int j = 1; j < t2; j++)
+                    for (int j = 1; j < t2; )
                     {
                         DownLoadUitlity.DownLoadFile(new WebFileInfo(tcf.Chapter[j]), j.ToString(tmp) + ".jpg", mypath);
 
                         Console.SetCursorPosition(x, y);
                         Console.Write("{0}/{1}", ++j, t2);
                     }
-                    Console.WriteLine();
+                    Console.SetCursorPosition(x, y);
+                    Console.WriteLine(".");
                     CompressUitlity.ZipFileDirectory(mypath);
                     Directory.Delete(mypath, true);
                     count--;

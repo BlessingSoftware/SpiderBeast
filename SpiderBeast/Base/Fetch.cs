@@ -65,7 +65,8 @@ namespace SpiderBeast.Base
         {
             mFetchOder = FetchOrder.OriginHtmlOrder;
             targetURL = URL;
-            doc = GetHtmlDocuments();
+            //doc = GetHtmlDocuments();
+            hasLoaded = false;
         }
 
         /// <summary>
@@ -104,18 +105,20 @@ namespace SpiderBeast.Base
         {
             if (targetURL != null)
             {
-                HtmlWeb web = new HtmlWeb();
-                //为 HtmlWeb 添加对gzip压缩的网页的支持，以及使用Cookie伪装
-                web.PreRequest += HtmlUitilty.SetRequestHandler;
+                doc = new HtmlDocument();
+                doc.LoadHtml(HtmlUitilty.GetStringByUrl(this.targetURL));
+                //HtmlWeb web = new HtmlWeb();
+                ////为 HtmlWeb 添加对gzip压缩的网页的支持，以及使用Cookie伪装
+                //web.PreRequest += HtmlUitilty.SetRequestHandler;
 
-                doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);// 
-                if (doc.StreamEncoding!=doc.DeclaredEncoding)
-                {
-                    WebFileInfo wfi = new WebFileInfo(targetURL);
-                    var stream = wfi.OpenRead();
-                    doc.Load(stream, doc.DeclaredEncoding);
-                    stream.Close();
-                }
+                //doc = web.Load(targetURL);// HtmlUitilty.GetDocumentByUrl(targetURL);//
+                //if (doc.StreamEncoding != doc.DeclaredEncoding)
+                //{
+                //    WebFileInfo wfi = new WebFileInfo(targetURL);
+                //    var stream = wfi.OpenRead();
+                //    doc.Load(stream, doc.DeclaredEncoding);
+                //    stream.Close();
+                //}
                 //设置跳转url
                 HtmlUitilty.EnsureDocumentUrl(doc, targetURL);
                 hasLoaded = true;

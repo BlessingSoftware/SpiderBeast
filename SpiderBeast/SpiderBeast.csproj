@@ -50,6 +50,7 @@
     <Compile Include="Documents\Chapter.cs" />
     <Compile Include="Fetchs\EmbedHtmlStringFetch.cs" />
     <Compile Include="Fetchs\IndexFetchsBase.cs" />
+    <Compile Include="Fetchs\ScriptIndexFetch.cs" />
     <Compile Include="Fetchs\SingleHtmlFetch.cs" />
     <Compile Include="Fetchs\TencentComicFetchs.cs" />
     <Compile Include="Fetchs\TencentIndexFetch.cs" />

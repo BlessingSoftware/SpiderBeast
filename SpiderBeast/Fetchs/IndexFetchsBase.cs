@@ -63,7 +63,7 @@ namespace SpiderBeast.Fetchs
             //this.ChildrenRule = new NodeRule(NodeFilterType.ByXPath, ".//li/a[@href]");
 
             //this.Children = new List<HtmlNode>();
-            this.menuURL = targetURL.Substring(0,targetURL.IndexOf('/',8));
+            this.menuURL = targetURL.Substring(0, targetURL.IndexOf('/', 8));
         }
 
         //TODO: 首先做好初始化函数，然后看一下 YBDSingleHtmlFetch 类的接口。
@@ -81,7 +81,7 @@ namespace SpiderBeast.Fetchs
             int i = 0;
             foreach (var item in Children)
             {
-                Chapters.Add(new Chapter(item.InnerText, menuURL + item.Attributes["href"].Value, i++));
+                Chapters.Add(new Chapter(Html2Text(item), menuURL + item.Attributes["href"].Value, i++));
             }
         }
 
@@ -118,5 +118,24 @@ namespace SpiderBeast.Fetchs
             //throw new NotImplementedException();
         }
 
+        static char[] s = new char[] { '\r', '\n','\t', ' ' };
+        /// <summary>
+        /// 获取节点中实际的文本
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static string Html2Text(IHtmlBaseNode node)
+        {
+            string html = node.InnerText.Trim();
+            if (html.Length > 0)
+            {
+                var arr = html.Split(s, StringSplitOptions.RemoveEmptyEntries);
+                return HtmlEntity.DeEntitize(string.Join(" ",arr));
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }
